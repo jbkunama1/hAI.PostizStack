@@ -1,0 +1,11 @@
+# hAI.PostizStack - ghcr Deployment Workflow
+
+This workflow builds and pushes the Postiz Docker image to GitHub Container Registry (ghcr).
+
+## Triggers
+- Push to main branch
+- Manual trigger
+
+## Jobs
+- Build stage: Compile and tag Docker image
+- Push stage: Push to ghcr.io/gitroomhq/postiz-app

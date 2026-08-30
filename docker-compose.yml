@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:v2.11.3
+    container_name: postiz
+    restart: always
+    environment:
+      # === Required Settings (ANPASSEN!)
+      MAIN_URL: 'https://postiz.example.com'
+      FRONTEND_URL: 'https://postiz.example.com'
+      NEXT_PUBLIC_BACKEND_URL: 'https://postiz.example.com/api'
+      JWT_SECRET: 'j8R9sT4uK7yQ2wE6vN3mL0pO9rS1tU4vW5xY6zA8bC2nD4'
+      
+      # === Database & Redis
+      DATABASE_URL: 'postgres://postiz-user:PostizPass123@postiz-postgres:5432/postiz-db-local'
+      REDIS_URL: 'redis://postiz-redis:6379'
+      
+      # === Access Management
+      IS_GENERAL: 'true'
+      DISABLE_REGISTRATION: 'false'
+      RUN_CRON: 'true'
+      STORAGE_PROVIDER: 'local'
+      UPLOAD_DIRECTORY: '/uploads'
+      NEXT_PUBLIC_UPLOAD_DIRECTORY: '/uploads'
+      
+      # === Resource Limits
+      NODE_OPTIONS: '--max-old-space-size=256'
+    volumes:
+      - postiz-config:/config/
+      - postiz-uploads:/uploads/
+    ports:
+      - "5000:5000"
+    networks:
+      - postiz-network
+    depends_on:
+      postiz-postgres:
+        condition: service_healthy
+      postiz-redis:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  postiz-postgres:
+    image: postgres:15-alpine
+    container_name: postiz-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 'PostizPass123'
+      POSTGRES_USER: postiz-user
+      POSTGRES_DB: postiz-db-local
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    networks:
+      - postiz-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postiz-user -d postiz-db-local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  postiz-redis:
+    image: redis:7.2-alpine
+    container_name: postiz-redis
+    restart: always
+    volumes:
+      - postiz-redis-data:/data
+    networks:
+      - postiz-network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+volumes:
+  postgres-volume:
+  postiz-redis-data:
+  postiz-config:
+  postiz-uploads:
+
+networks:
+  postiz-network:
