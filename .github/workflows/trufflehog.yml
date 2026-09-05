@@ -1,12 +1,22 @@
-name: TruffleHog
-on: [push, pull_request]
+name: TruffleHog Secret Scan
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # täglich um 02:00 Uhr UTC
+  push:
+    branches: [ main, master ]
+
 jobs:
-  trufflehog:
+  trufflehog-scan:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: TruffleHog OSS
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # gesamte Git-Historie scannen
+
+      - name: Run TruffleHog OSS
         uses: trufflesecurity/trufflehog@main
         with:
-          extraArgs: '--debug --only-verified'
+          extra_args: --only-verified

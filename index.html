@@ -3,101 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hAI.PostizStack - Resource-Efficient Social Media Automation</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #0078d4;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #555;
-            margin-top: 30px;
-        }
-        .summary {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin: 20px 0;
-        }
-        .feature-list {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .feature-item {
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>hAI.PostizStack - Self-Hosted Social Media Automation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 </head>
 <body>
-    <h1>hAI.PostizStack</h1>
-    
-    <div class="summary">
-        <h2>Ziel</h2>
-        <p>Ressourcenschonender selbst gehosteter Social-Media-Automations-Stack mit Postiz, PostgreSQL und Redis.</p>
-    </div>
-    
-    <h2>Stack-Komponenten</h2>
-    <ul class="feature-list">
-        <li><strong>Postiz</strong> (v2.11.3) – AI-gestützter Social-Media Scheduler</li>
-        <li><strong>PostgreSQL 15 Alpine</strong> – Datenbank für Metadaten und Zustände</li>
-        <li><strong>Redis 7.2 Alpine</strong> – Background-Jobs & Caching</li>
-    </ul>
-    
-    <h2>Quick Start</h2>
-    <ol class="feature-list">
-        <li><strong>1. Passwörter generieren</strong> – OpenSSL-Befehle für PostgreSQL-Passwort und JWT-Secret</li>
-        <li><strong>2. docker-compose.yml anpassen</strong> – Domain, Passwörter ersetzen</li>
-        <li><strong>3. Deployment</strong> – Docker Compose CLI oder Portainer verwenden</li>
-        <li><strong>4. Erster Zugriff</strong> – URL öffnen, Admin-User anlegen</li>
-    </ol>
-    
-    <h2>Ressourcenverbrauch</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Container</th>
-                <th>RAM Limit</th>
-                <th>Realer Verbrauch</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>postiz</td>
-                <td>512 MB</td>
-                <td>~300-400 MB</td>
-            </tr>
-            <tr>
-                <td>postiz-postgres</td>
-                <td>256 MB</td>
-                <td>~150-250 MB</td>
-            </tr>
-            <tr>
-                <td>postiz-redis</td>
-                <td>128 MB</td>
-                <td>~20-50 MB</td>
-            </tr>
-            <tr>
-                <td>Gesamt</td>
-                <td>896 MB</td>
-                <td>~470-700 MB</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <h2>Reverse Proxy</h2>
-    <p>Nginx Proxy Manager oder Cloudflare Tunnel können verwendet werden, um den Stack auf eine öffentliche URL zu leiten.</p>
-    
-    <h2>Upgrade-Pfade</h2>
-    <p>Später kann Phase 3 mit Temporal und Elasticsearch hinzugefügt werden.</p>
+    <main class="container">
+        <header>
+            <h1>hAI.PostizStack</h1>
+            <p>Ressourcenschonender Postiz Docker Stack für Portainer</p>
+        </header>
+
+        <section>
+            <h2>Über das Projekt</h2>
+            <p>Ein optimierter, self-hosted Social Media Automation Stack basierend auf Postiz, PostgreSQL und Redis.</p>
+            <a href="https://github.com/jbkunama1/hAI.PostizStack" class="button" role="button">GitHub Repository</a>
+        </section>
+
+        <section>
+            <h2>Stack Komponenten</h2>
+            <ul>
+                <li><strong>Postiz:</strong> AI-gestützter Social Media Scheduler</li>
+                <li><strong>PostgreSQL:</strong> Zuverlässige Datenhaltung</li>
+                <li><strong>Redis:</strong> Job-Queue & Caching</li>
+            </ul>
+        </section>
+    </main>
 </body>
 </html>
